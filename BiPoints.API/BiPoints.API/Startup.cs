@@ -1,12 +1,20 @@
 ﻿using BiPoints.BLL.Interfaces.Authenticate;
+using BiPoints.BLL.Interfaces.Scan;
 using BiPoints.BLL.Interfaces.User;
 using BiPoints.BLL.Services.Authenticate;
+using BiPoints.BLL.Services.Scan;
 using BiPoints.BLL.Services.User;
 using BiPoints.DAL.Interfaces;
 using BiPoints.DAL.Interfaces.Authenticate;
+using BiPoints.DAL.Interfaces.Item;
+using BiPoints.DAL.Interfaces.Point;
+using BiPoints.DAL.Interfaces.Scan;
 using BiPoints.DAL.Interfaces.User;
 using BiPoints.DAL.Repositories;
 using BiPoints.DAL.Repositories.Authenticate;
+using BiPoints.DAL.Repositories.Item;
+using BiPoints.DAL.Repositories.Point;
+using BiPoints.DAL.Repositories.Scan;
 using BiPoints.DAL.Repositories.User;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -57,12 +65,17 @@ namespace BiPoints.API
             //Initialize Services DI
             services.AddScoped<IAuthenticateServices, AuthenticateServices>();
             services.AddScoped<IGetUserService, GetUserService>();
+            services.AddScoped<IScanService, ScanService>();
 
             //Initialize Repositories DI
             services.AddScoped<IAuthenticateRepositories, AuthenticateRepositories>();
             services.AddScoped<ISaveRepositories, SaveRepositories>();
             services.AddScoped<IGetUserByIdRepositories, GetUserByIdRepositories>();
             services.AddScoped<IGetUserByAuthenticateIdRepositories, GetUserByAuthenticateIdRepositories>();
+            services.AddScoped<IItemRepositories, ItemRepositories>();
+            services.AddScoped<ICreatePointRepositories, CreatePointRepositories>();
+            services.AddScoped<IScanHistoryRepositories, ScanHistoryRepositories>();
+            services.AddScoped<IAddPointsRepositories, AddPointsRepositories>();
 
         }
 

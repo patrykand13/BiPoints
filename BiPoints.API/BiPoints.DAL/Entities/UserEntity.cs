@@ -17,5 +17,7 @@ namespace BiPoints.DAL.Entities
         public string Language { get; set; }
         public int PhoneNumber { get; set; }
         public AuthenticateEntity Authenticate { get; set; }
+        public ScanHistoryEntity ScanHistoryEntity { get; set; }
+        public PointEntity PointEntity { get; set; }
     }
 }

@@ -120,6 +120,12 @@
   <data name="Error" xml:space="preserve">
     <value>Błąd</value>
   </data>
+  <data name="ErrorAddFailed" xml:space="preserve">
+    <value>Dodawanie nie powiodło się</value>
+  </data>
+  <data name="ErrorDuplicate" xml:space="preserve">
+    <value>Duplikat. Zeskanuj inny kod</value>
+  </data>
   <data name="ErrorGetDataFailed" xml:space="preserve">
     <value>Pobieranie danych nie powiodło się</value>
   </data>
@@ -132,8 +138,14 @@
   <data name="ErrorRegistrationFailed" xml:space="preserve">
     <value>Rejestracja nie powiodła się</value>
   </data>
+  <data name="ErrorScanFailed" xml:space="preserve">
+    <value>Skanowanie nie powiodło się.  Nieprawidłowy kod QR</value>
+  </data>
   <data name="ErrorShouldContain3Char" xml:space="preserve">
     <value>Powinien zawierać minimum 3 znaki</value>
+  </data>
+  <data name="ErrorTheItemDoesntExist" xml:space="preserve">
+    <value>Przedmiot nie istnieje</value>
   </data>
   <data name="ErrorTheUserDoesntExist" xml:space="preserve">
     <value>Użytkownik nie istnieje</value>
@@ -192,8 +204,8 @@
   <data name="StringScanning" xml:space="preserve">
     <value>Skanowanie</value>
   </data>
-  <data name="StringScanTheEanCode" xml:space="preserve">
-    <value>Zeskanuj kod EAN</value>
+  <data name="StringScanTheQrCode" xml:space="preserve">
+    <value>Zeskanuj kod QR</value>
   </data>
   <data name="StringSignUp" xml:space="preserve">
     <value>Zarejestruj się!</value>

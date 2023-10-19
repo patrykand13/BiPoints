@@ -2,10 +2,12 @@
 using BiPoints.Interfaces.Authenticate;
 using BiPoints.Interfaces.Base;
 using BiPoints.Interfaces.LocalDB;
+using BiPoints.Interfaces.Scan;
 using BiPoints.Interfaces.User;
 using BiPoints.Services.Authenticate;
 using BiPoints.Services.Base;
 using BiPoints.Services.LocalDB;
+using BiPoints.Services.Scan;
 using BiPoints.Services.User;
 using BiPoints.Views.Authentication;
 using Xamarin.Forms;
@@ -34,6 +36,7 @@ namespace BiPoints
             DependencyService.Register<IDeleteProfileLocalDBServices, DeleteProfileLocalDBServices>();
             DependencyService.Register<ISearchLocalDBServices, SearchLocalDBServices>();
             DependencyService.Register<IUserServices, UserServices>();
+            DependencyService.Register<IScanServices, ScanServices>();
 
             //Initialize Local Database
             var localDb = new LocalDb();

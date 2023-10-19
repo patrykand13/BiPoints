@@ -22,18 +22,16 @@ namespace BiPoints.DAL.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("BiPoints.API.Models.Authenticate", b =>
+            modelBuilder.Entity("BiPoints.API.Models.AuthenticateEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Password")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Username")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -41,33 +39,106 @@ namespace BiPoints.DAL.Migrations
                     b.ToTable("Authenticates");
                 });
 
-            modelBuilder.Entity("BiPoints.DAL.Entities.User", b =>
+            modelBuilder.Entity("BiPoints.DAL.Entities.ItemEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("CodeQr")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Points")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Items");
+                });
+
+            modelBuilder.Entity("BiPoints.DAL.Entities.PointEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("BiPoints")
+                        .HasColumnType("int");
+
+                    b.Property<int>("BiPointsForUse")
+                        .HasColumnType("int");
+
+                    b.Property<int>("BiPointsUsed")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.ToTable("Points");
+                });
+
+            modelBuilder.Entity("BiPoints.DAL.Entities.ScanHistoryEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("AddDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CodeQr")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Points")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("ScanSuccess")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.ToTable("ScanHistories");
+                });
+
+            modelBuilder.Entity("BiPoints.DAL.Entities.UserEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Address")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("AuthenticateId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("City")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Language")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Lastname")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("PhoneNumber")
@@ -81,21 +152,49 @@ namespace BiPoints.DAL.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("BiPoints.DAL.Entities.User", b =>
+            modelBuilder.Entity("BiPoints.DAL.Entities.PointEntity", b =>
                 {
-                    b.HasOne("BiPoints.API.Models.Authenticate", "Authenticate")
+                    b.HasOne("BiPoints.DAL.Entities.UserEntity", "UserEntity")
+                        .WithOne("PointEntity")
+                        .HasForeignKey("BiPoints.DAL.Entities.PointEntity", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("UserEntity");
+                });
+
+            modelBuilder.Entity("BiPoints.DAL.Entities.ScanHistoryEntity", b =>
+                {
+                    b.HasOne("BiPoints.DAL.Entities.UserEntity", "UserEntity")
+                        .WithOne("ScanHistoryEntity")
+                        .HasForeignKey("BiPoints.DAL.Entities.ScanHistoryEntity", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("UserEntity");
+                });
+
+            modelBuilder.Entity("BiPoints.DAL.Entities.UserEntity", b =>
+                {
+                    b.HasOne("BiPoints.API.Models.AuthenticateEntity", "Authenticate")
                         .WithOne("User")
-                        .HasForeignKey("BiPoints.DAL.Entities.User", "AuthenticateId")
+                        .HasForeignKey("BiPoints.DAL.Entities.UserEntity", "AuthenticateId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Authenticate");
                 });
 
-            modelBuilder.Entity("BiPoints.API.Models.Authenticate", b =>
+            modelBuilder.Entity("BiPoints.API.Models.AuthenticateEntity", b =>
                 {
-                    b.Navigation("User")
-                        .IsRequired();
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("BiPoints.DAL.Entities.UserEntity", b =>
+                {
+                    b.Navigation("PointEntity");
+
+                    b.Navigation("ScanHistoryEntity");
                 });
 #pragma warning restore 612, 618
         }

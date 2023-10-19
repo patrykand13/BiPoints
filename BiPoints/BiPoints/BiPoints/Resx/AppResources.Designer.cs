@@ -70,6 +70,24 @@ namespace BiPoints.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add failed.
+        /// </summary>
+        internal static string ErrorAddFailed {
+            get {
+                return ResourceManager.GetString("ErrorAddFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Duplicate. Scan another code.
+        /// </summary>
+        internal static string ErrorDuplicate {
+            get {
+                return ResourceManager.GetString("ErrorDuplicate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Get data failed.
         /// </summary>
         internal static string ErrorGetDataFailed {
@@ -106,11 +124,29 @@ namespace BiPoints.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Scan failed. Incorrect QR code.
+        /// </summary>
+        internal static string ErrorScanFailed {
+            get {
+                return ResourceManager.GetString("ErrorScanFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Should contain 3 char.
         /// </summary>
         internal static string ErrorShouldContain3Char {
             get {
                 return ResourceManager.GetString("ErrorShouldContain3Char", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The item doesnt exist.
+        /// </summary>
+        internal static string ErrorTheItemDoesntExist {
+            get {
+                return ResourceManager.GetString("ErrorTheItemDoesntExist", resourceCulture);
             }
         }
         
@@ -286,11 +322,11 @@ namespace BiPoints.Resx {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Scan the EAN code.
+        ///   Looks up a localized string similar to Scan the QR code.
         /// </summary>
-        internal static string StringScanTheEanCode {
+        internal static string StringScanTheQrCode {
             get {
-                return ResourceManager.GetString("StringScanTheEanCode", resourceCulture);
+                return ResourceManager.GetString("StringScanTheQrCode", resourceCulture);
             }
         }
         

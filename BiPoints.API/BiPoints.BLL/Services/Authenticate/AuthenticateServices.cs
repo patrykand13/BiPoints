@@ -4,6 +4,7 @@ using BiPoints.BLL.DTO.Response.User;
 using BiPoints.BLL.Interfaces.Authenticate;
 using BiPoints.DAL.Interfaces;
 using BiPoints.DAL.Interfaces.Authenticate;
+using BiPoints.DAL.Interfaces.Point;
 using BiPoints.DAL.Interfaces.User;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -18,12 +19,15 @@ namespace BiPoints.BLL.Services.Authenticate
         private readonly IAuthenticateRepositories _authenticateRepositories;
         private readonly ISaveRepositories _saveRepositories;
         private readonly IGetUserByAuthenticateIdRepositories _getUserRepositories;
-        public AuthenticateServices(IConfiguration configuration, IAuthenticateRepositories authenticateRepositories, ISaveRepositories saveRepositories, IGetUserByAuthenticateIdRepositories getUserRepositories)
+        private readonly ICreatePointRepositories _createPointRepositories;
+        public AuthenticateServices(IConfiguration configuration, IAuthenticateRepositories authenticateRepositories, ISaveRepositories saveRepositories,
+            IGetUserByAuthenticateIdRepositories getUserRepositories, ICreatePointRepositories createPointRepositories)
         {
             _configuration = configuration;
             _authenticateRepositories = authenticateRepositories;
             _saveRepositories = saveRepositories;
             _getUserRepositories = getUserRepositories;
+            _createPointRepositories = createPointRepositories;
         }
 
         public async Task<BaseResponse> Login(string username, string password)
@@ -123,6 +127,15 @@ namespace BiPoints.BLL.Services.Authenticate
 
                 var userId = await _authenticateRepositories.CreateUser(authenticateId, name, lastname);
                 if (userId == Guid.Empty)
+                {
+                    return new BaseResponse
+                    {
+                        Status = "Error",
+                        Message = "ErrorCreateUserFailed"
+                    };
+                }
+                var isSuccess = await _createPointRepositories.CreatePointByUserId(userId);
+                if (!isSuccess)
                 {
                     return new BaseResponse
                     {

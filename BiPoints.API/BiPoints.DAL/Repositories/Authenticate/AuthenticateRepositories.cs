@@ -1,5 +1,6 @@
 ﻿using BiPoints.API;
 using BiPoints.API.Models;
+using BiPoints.DAL.Entities;
 using BiPoints.DAL.Interfaces.Authenticate;
 
 namespace BiPoints.DAL.Repositories.Authenticate
@@ -15,7 +16,7 @@ namespace BiPoints.DAL.Repositories.Authenticate
         {
             try
             {
-                var model = new Entities.UserEntity
+                var model = new UserEntity
                 {
                     AuthenticateId = authenticateId,
                     Name = name,

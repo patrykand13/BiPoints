@@ -3,6 +3,7 @@
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
        xmlns:local="clr-namespace:BiPoints"
        xmlns:mainViews="clr-namespace:BiPoints.Views.Main"
+       xmlns:scanViews="clr-namespace:BiPoints.Views.Scan"
        Title="BiPoints"
        x:Class="BiPoints.AppShell"
        NavigationPage.HasNavigationBar="False">
@@ -22,7 +23,8 @@
     </Shell.Resources>
 
     <TabBar>
-        <ShellContent Title="Home" ContentTemplate="{DataTemplate mainViews:HomePage}" />
+        <ShellContent Icon="homeIcon.png" ContentTemplate="{DataTemplate mainViews:HomePage}"/>
+        <ShellContent Icon="scanIcon.png" ContentTemplate="{DataTemplate scanViews:ScanPage}" />
     </TabBar>
 
 </Shell>

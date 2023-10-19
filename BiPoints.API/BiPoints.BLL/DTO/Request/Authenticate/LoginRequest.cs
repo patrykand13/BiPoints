@@ -1,4 +1,4 @@
-﻿namespace BiPoints.BLL.DTO.Request
+﻿namespace BiPoints.BLL.DTO.Request.Authenticate
 {
     public class LoginRequest
     {

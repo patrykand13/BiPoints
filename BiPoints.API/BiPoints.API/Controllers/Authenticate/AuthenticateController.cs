@@ -1,4 +1,4 @@
-﻿using BiPoints.BLL.DTO.Request;
+﻿using BiPoints.BLL.DTO.Request.Authenticate;
 using BiPoints.BLL.Interfaces.Authenticate;
 using Microsoft.AspNetCore.Mvc;
 

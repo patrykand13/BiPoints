@@ -10,11 +10,11 @@ namespace BiPoints.BLL.Services.Scan
 {
     public class ScanService : IScanService
     {
-        private readonly IScanHistoryRepositories _scanRepositories;
+        private readonly IScanRepositories _scanRepositories;
         private readonly IItemRepositories _itemRepositories;
         private readonly IAddPointsRepositories _addPointsRepositories;
         private readonly ISaveRepositories _saveRepositories;
-        public ScanService(IScanHistoryRepositories scanRepositories, IItemRepositories itemRepositories, IAddPointsRepositories addPointsRepositories, ISaveRepositories saveRepositories)
+        public ScanService(IScanRepositories scanRepositories, IItemRepositories itemRepositories, IAddPointsRepositories addPointsRepositories, ISaveRepositories saveRepositories)
         {
             _scanRepositories = scanRepositories;
             _itemRepositories = itemRepositories;

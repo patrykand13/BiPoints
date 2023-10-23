@@ -43,17 +43,8 @@ namespace BiPoints.BLL.Services.Authenticate
                         Message = "ErrorWrongUsernameOrPassword"
                     };
                 }
-                var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]));
+                var token = CreateToken();
 
-                var tokenToWrite = new JwtSecurityToken(
-                    issuer: _configuration["JWT:ValidIssuer"],
-
-                    audience: _configuration["JWT:ValidAudience"],
-                    expires: DateTime.Now.AddMonths(30),
-                    signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
-
-                    );
-                var token = new JwtSecurityTokenHandler().WriteToken(tokenToWrite);
                 var userModel = _getUserRepositories.GetUserDataByAuthenticateId(authenticateId);
                 if (userModel == null)
                 {
@@ -103,17 +94,7 @@ namespace BiPoints.BLL.Services.Authenticate
                         Message = "ErrorThisUserAlreadyExist"
                     };
                 }
-                var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]));
-
-                var tokenToWrite = new JwtSecurityToken(
-                    issuer: _configuration["JWT:ValidIssuer"],
-
-                    audience: _configuration["JWT:ValidAudience"],
-                    expires: DateTime.Now.AddMonths(30),
-                    signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
-
-                    );
-                var token = new JwtSecurityTokenHandler().WriteToken(tokenToWrite);
+                var token = CreateToken();
 
                 var authenticateId = await _authenticateRepositories.CreateAuthenticate(username, password);
                 if (authenticateId == Guid.Empty)
@@ -168,6 +149,20 @@ namespace BiPoints.BLL.Services.Authenticate
                     Message = "ErrorRegistrationFailed"
                 };
             }
+        }
+        string CreateToken()
+        {
+            var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]));
+
+            var tokenToWrite = new JwtSecurityToken(
+                issuer: _configuration["JWT:ValidIssuer"],
+
+                audience: _configuration["JWT:ValidAudience"],
+                expires: DateTime.Now.AddMonths(30),
+                signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
+
+                );
+            return new JwtSecurityTokenHandler().WriteToken(tokenToWrite);
         }
     }
 }

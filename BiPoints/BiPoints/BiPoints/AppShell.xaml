@@ -25,6 +25,7 @@
     <TabBar>
         <ShellContent Icon="homeIcon.png" ContentTemplate="{DataTemplate mainViews:HomePage}"/>
         <ShellContent Icon="scanIcon.png" ContentTemplate="{DataTemplate scanViews:ScanPage}" />
+        <ShellContent Icon="historyIcon.png" ContentTemplate="{DataTemplate scanViews:ScanHistoryPage}" />
     </TabBar>
 
 </Shell>

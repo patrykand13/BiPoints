@@ -1,5 +1,5 @@
 ﻿using BiPoints.API;
-using BiPoints.DAL.Entities;
+using BiPoints.DAL.DAO;
 using BiPoints.DAL.Interfaces.Scan;
 
 namespace BiPoints.DAL.Repositories.Scan
@@ -12,23 +12,20 @@ namespace BiPoints.DAL.Repositories.Scan
             _context = context;
         }
 
-        public async Task<bool> AddScan(Guid userId, string codeQr, int points, bool scanSuccess)
+        public List<ScanHistoryDao> GetScanHistory(Guid userId, int skipRecords)
         {
-            var model = new ScanHistoryEntity
-            {
-                UserId = userId,
-                CodeQr = codeQr,
-                Points = points,
-                ScanSuccess = scanSuccess,
-                AddDate = DateTime.Now,
-            };
-            await _context.ScanHistories.AddAsync(model);
-            return true;
-        }
-
-        public bool CheckIfTheCodeWasScanned(string codeQr)
-        {
-            return _context.ScanHistories.Any(x => x.CodeQr == codeQr);
+            var scanHistoryList = (from u in _context.ScanHistories
+                                   where u.UserId == userId
+                                   join item in _context.Items on u.CodeQr equals item.CodeQr
+                                   select new ScanHistoryDao
+                                   {
+                                       Image = item.Image,
+                                       Name = item.Name,
+                                       AddDate = u.AddDate,
+                                       Points = u.Points,
+                                       ScanSuccess = u.ScanSuccess
+                                   }).Skip(skipRecords).Take(20).ToList();
+            return scanHistoryList;
         }
     }
 }

@@ -223,6 +223,24 @@ namespace BiPoints.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Date added.
+        /// </summary>
+        internal static string StringDateAdded {
+            get {
+                return ResourceManager.GetString("StringDateAdded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Duplicate.
+        /// </summary>
+        internal static string StringDuplicate {
+            get {
+                return ResourceManager.GetString("StringDuplicate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to For use.
         /// </summary>
         internal static string StringForUse {
@@ -246,6 +264,15 @@ namespace BiPoints.Resx {
         internal static string StringGetPoints {
             get {
                 return ResourceManager.GetString("StringGetPoints", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to History.
+        /// </summary>
+        internal static string StringHistory {
+            get {
+                return ResourceManager.GetString("StringHistory", resourceCulture);
             }
         }
         
@@ -282,6 +309,15 @@ namespace BiPoints.Resx {
         internal static string StringPassword {
             get {
                 return ResourceManager.GetString("StringPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Points amount.
+        /// </summary>
+        internal static string StringPointsAmount {
+            get {
+                return ResourceManager.GetString("StringPointsAmount", resourceCulture);
             }
         }
         
@@ -336,6 +372,24 @@ namespace BiPoints.Resx {
         internal static string StringSignUp {
             get {
                 return ResourceManager.GetString("StringSignUp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to State.
+        /// </summary>
+        internal static string StringState {
+            get {
+                return ResourceManager.GetString("StringState", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Success.
+        /// </summary>
+        internal static string StringSuccess {
+            get {
+                return ResourceManager.GetString("StringSuccess", resourceCulture);
             }
         }
         

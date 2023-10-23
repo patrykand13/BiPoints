@@ -66,6 +66,7 @@ namespace BiPoints.API
             services.AddScoped<IAuthenticateServices, AuthenticateServices>();
             services.AddScoped<IGetUserService, GetUserService>();
             services.AddScoped<IScanService, ScanService>();
+            services.AddScoped<IScanHistoryService, ScanHistoryService>();
 
             //Initialize Repositories DI
             services.AddScoped<IAuthenticateRepositories, AuthenticateRepositories>();
@@ -76,7 +77,7 @@ namespace BiPoints.API
             services.AddScoped<ICreatePointRepositories, CreatePointRepositories>();
             services.AddScoped<IScanHistoryRepositories, ScanHistoryRepositories>();
             services.AddScoped<IAddPointsRepositories, AddPointsRepositories>();
-
+            services.AddScoped<IScanRepositories, ScanRepositories>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

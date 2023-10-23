@@ -171,6 +171,12 @@
   <data name="StringClose" xml:space="preserve">
     <value>Close</value>
   </data>
+  <data name="StringDateAdded" xml:space="preserve">
+    <value>Date added</value>
+  </data>
+  <data name="StringDuplicate" xml:space="preserve">
+    <value>Duplicate</value>
+  </data>
   <data name="StringForUse" xml:space="preserve">
     <value>For use</value>
   </data>
@@ -179,6 +185,9 @@
   </data>
   <data name="StringGetPoints" xml:space="preserve">
     <value>Get points</value>
+  </data>
+  <data name="StringHistory" xml:space="preserve">
+    <value>History</value>
   </data>
   <data name="StringLastname" xml:space="preserve">
     <value>Lastname</value>
@@ -191,6 +200,9 @@
   </data>
   <data name="StringPassword" xml:space="preserve">
     <value>Password</value>
+  </data>
+  <data name="StringPointsAmount" xml:space="preserve">
+    <value>Points amount</value>
   </data>
   <data name="StringProductScannedCorrectly" xml:space="preserve">
     <value>Product scanned correctly</value>
@@ -209,6 +221,12 @@
   </data>
   <data name="StringSignUp" xml:space="preserve">
     <value>Sign up!</value>
+  </data>
+  <data name="StringState" xml:space="preserve">
+    <value>State</value>
+  </data>
+  <data name="StringSuccess" xml:space="preserve">
+    <value>Success</value>
   </data>
   <data name="StringUsed" xml:space="preserve">
     <value>Used</value>

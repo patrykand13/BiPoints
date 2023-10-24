@@ -25,7 +25,10 @@ namespace BiPoints.BLL.Services.Scan
         {
             try
             {
+                // Retrieve product information based on the scanned QR code.
                 var item = _itemRepositories.GetItemByCodeQr(result);
+
+                // If the product with the given QR code doesn't exist, return an error.
                 if (item == null)
                 {
                     return new BaseResponse
@@ -34,8 +37,14 @@ namespace BiPoints.BLL.Services.Scan
                         Message = "ErrorTheItemDoesntExist"
                     };
                 }
+
+                // Check if the code has already been scanned by the user.
                 var scanExist = _scanRepositories.CheckIfTheCodeWasScanned(result);
+
+                // Add the scan to the history.
                 var isSuccess = await _scanRepositories.AddScan(userId, result, item.Points, !scanExist);
+
+                // If the scan addition operation failed, return an error.
                 if (!isSuccess)
                 {
                     return new BaseResponse
@@ -44,6 +53,8 @@ namespace BiPoints.BLL.Services.Scan
                         Message = "ErrorAddFailed"
                     };
                 }
+
+                // If the code was previously scanned, return a duplicate error.
                 if (scanExist)
                 {
                     return new BaseResponse
@@ -52,7 +63,11 @@ namespace BiPoints.BLL.Services.Scan
                         Message = "ErrorDuplicate"
                     };
                 }
+
+                // Add the earned points to the user's account.
                 isSuccess = _addPointsRepositories.AddPoints(userId, item.Points);
+
+                // If the points addition operation failed, return an error.
                 if (!isSuccess)
                 {
                     return new BaseResponse
@@ -61,21 +76,27 @@ namespace BiPoints.BLL.Services.Scan
                         Message = "ErrorAddFailed"
                     };
                 }
+
+                // Save the changes made in the repository.
                 await _saveRepositories.Save();
+
+                // Prepare a response containing information about the product.
                 ItemResponse itemResponse = new ItemResponse
                 {
                     Name = item.Name,
                     Image = item.Image
                 };
+
+                // Return a success response with product data.
                 return new BaseResponse
                 {
                     Status = "Success",
                     Obj = itemResponse
                 };
-
             }
             catch
             {
+                // If an error occurred during processing, return an internal error response.
                 return new BaseResponse
                 {
                     Status = "InternalError",
@@ -83,5 +104,6 @@ namespace BiPoints.BLL.Services.Scan
                 };
             }
         }
+
     }
 }

@@ -29,12 +29,14 @@ namespace BiPoints.BLL.Services.Authenticate
             _getUserRepositories = getUserRepositories;
             _createPointRepositories = createPointRepositories;
         }
-
         public async Task<BaseResponse> Login(string username, string password)
         {
             try
             {
+                // Retrieve the authentication identifier based on the username and password.
                 var authenticateId = _authenticateRepositories.GetAuthenticateId(username, password);
+
+                // If the authentication identifier is empty, it indicates an authentication error.
                 if (authenticateId == Guid.Empty)
                 {
                     return new BaseResponse
@@ -43,9 +45,14 @@ namespace BiPoints.BLL.Services.Authenticate
                         Message = "ErrorWrongUsernameOrPassword"
                     };
                 }
+
+                // Create an access token upon successful authentication.
                 var token = CreateToken();
 
+                // Retrieve user data based on the authentication identifier.
                 var userModel = _getUserRepositories.GetUserDataByAuthenticateId(authenticateId);
+
+                // If user data is empty, it means the user does not exist.
                 if (userModel == null)
                 {
                     return new BaseResponse
@@ -54,6 +61,8 @@ namespace BiPoints.BLL.Services.Authenticate
                         Message = "ErrorTheUserDoesntExist"
                     };
                 }
+
+                // Create a response containing user data and access token.
                 var userResponse = new UserResponse
                 {
                     Id = userModel.Id,
@@ -65,15 +74,17 @@ namespace BiPoints.BLL.Services.Authenticate
                     PhoneNumber = userModel.PhoneNumber,
                     Language = userModel.Language
                 };
+
+                // Return a  user data.
                 return new BaseResponse
                 {
                     Status = "Success",
                     Obj = userResponse
                 };
-
             }
             catch
             {
+                // If an error occurs during processing, return an error response.
                 return new BaseResponse
                 {
                     Status = "Error",
@@ -85,7 +96,10 @@ namespace BiPoints.BLL.Services.Authenticate
         {
             try
             {
+                // Check if a user with the provided username already exists in the system.
                 var userExist = _authenticateRepositories.CheckUserExists(username);
+
+                // If a user with the given username already exists, return an error.
                 if (userExist)
                 {
                     return new BaseResponse
@@ -94,9 +108,14 @@ namespace BiPoints.BLL.Services.Authenticate
                         Message = "ErrorThisUserAlreadyExist"
                     };
                 }
+
+                // Create an access token
                 var token = CreateToken();
 
+                // Create a user authentication identifier based on the username and password.
                 var authenticateId = await _authenticateRepositories.CreateAuthenticate(username, password);
+
+                // If the authentication identifier is empty, return an error.
                 if (authenticateId == Guid.Empty)
                 {
                     return new BaseResponse
@@ -106,7 +125,10 @@ namespace BiPoints.BLL.Services.Authenticate
                     };
                 }
 
+                // Create a user based on the authentication identifier and user data.
                 var userId = await _authenticateRepositories.CreateUser(authenticateId, name, lastname);
+
+                // If the user identifier is empty, return an error.
                 if (userId == Guid.Empty)
                 {
                     return new BaseResponse
@@ -115,7 +137,10 @@ namespace BiPoints.BLL.Services.Authenticate
                         Message = "ErrorCreateUserFailed"
                     };
                 }
+
                 var isSuccess = await _createPointRepositories.CreatePointByUserId(userId);
+
+                // If the create operation failed, return an error.
                 if (!isSuccess)
                 {
                     return new BaseResponse
@@ -125,7 +150,10 @@ namespace BiPoints.BLL.Services.Authenticate
                     };
                 }
 
+                // Save the changes in the repository.
                 await _saveRepositories.Save();
+
+                // Create a response containing the user identifier, access token, and user data.
                 var userResponse = new RegisterResponse
                 {
                     UserId = userId,
@@ -134,15 +162,17 @@ namespace BiPoints.BLL.Services.Authenticate
                     Lastname = lastname,
                     Language = "StringEnglish"
                 };
+
+                // Return a success response with user data.
                 return new BaseResponse
                 {
                     Status = "Success",
                     Obj = userResponse
                 };
-
             }
             catch
             {
+                // If an error occurred during processing, return an internal error response.
                 return new BaseResponse
                 {
                     Status = "InternalError",
@@ -150,19 +180,22 @@ namespace BiPoints.BLL.Services.Authenticate
                 };
             }
         }
-        string CreateToken()
+        public string CreateToken()
         {
+            // Create an authentication key based on the secret from configuration.
             var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]));
 
+            // Create a JWT token, specifying the issuer, audience, expiration, and signing information.
             var tokenToWrite = new JwtSecurityToken(
                 issuer: _configuration["JWT:ValidIssuer"],
-
                 audience: _configuration["JWT:ValidAudience"],
                 expires: DateTime.Now.AddMonths(30),
                 signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
+            );
 
-                );
+            // Save the JWT token as a string and return it as the result.
             return new JwtSecurityTokenHandler().WriteToken(tokenToWrite);
         }
+
     }
 }

@@ -45,31 +45,47 @@ namespace BiPoints.ViewModels.Authentication
         {
             if (IsBusy)
                 return;
+
             IsBusy = true;
+
+            // Check the validity of the entered data.
             var isSuccess = CheckData("all");
+
+            // If the data is invalid, exit the registration process.
             if (!isSuccess)
             {
                 IsBusy = false;
                 return;
             }
+
             var response = await _registerServices.Register(Username, Password, Name, Lastname);
-            if (!response.Equals(Error))
+            // Check if the response is not an error.
+            if (response.Equals(Error))
             {
-                var userModel = JsonConvert.DeserializeObject<RegisterResponse>(response);
-                await _editProfileLocalDBServices.EditProfile(userModel.UserId, userModel.Token);
-                ProfileHelper.UserId = userModel.UserId;
-                ProfileHelper.Token = userModel.Token;
-                ProfileHelper.Name = userModel.Name;
-                ProfileHelper.Lastname = userModel.Lastname;
-                BaseInfoHelper.Language = userModel.Language;
-                Start();
+                IsBusy = false;
+                return;
             }
-            else IsBusy = false;
+            var userModel = JsonConvert.DeserializeObject<RegisterResponse>(response);
+
+            // Update user data in the local database.
+            await _editProfileLocalDBServices.EditProfile(userModel.UserId, userModel.Token);
+
+            // Update user information in ProfileHelper.
+            ProfileHelper.UserId = userModel.UserId;
+            ProfileHelper.Token = userModel.Token;
+            ProfileHelper.Name = userModel.Name;
+            ProfileHelper.Lastname = userModel.Lastname;
+            BaseInfoHelper.Language = userModel.Language;
+
+            // Start the main user interface.
+            Start();
+            IsBusy = false;
         }
         async Task GoLogin()
         {
             if (IsBusy)
                 return;
+
             IsBusy = true;
             await PopAsync();
             IsBusy = false;
@@ -77,8 +93,10 @@ namespace BiPoints.ViewModels.Authentication
         bool CheckData(string type)
         {
             var dataCorrect = true;
+
             if (type.Equals("username") || type.Equals("all"))
             {
+                // Check the validity of the username.
                 if (string.IsNullOrWhiteSpace(Username) || Username.Length < 3)
                 {
                     UsernameFrameColor = "#F23333";
@@ -91,8 +109,10 @@ namespace BiPoints.ViewModels.Authentication
                     UsernameIsNotValid = false;
                 }
             }
+
             if (type.Equals("password") || type.Equals("all"))
             {
+                // Check the validity of the password.
                 if (string.IsNullOrWhiteSpace(Password) || Password.Length < 3)
                 {
                     PasswordFrameColor = "#F23333";
@@ -105,8 +125,10 @@ namespace BiPoints.ViewModels.Authentication
                     PasswordIsNotValid = false;
                 }
             }
+
             if (type.Equals("name") || type.Equals("all"))
             {
+                // Check the validity of the name.
                 if (string.IsNullOrWhiteSpace(Name) || Name.Length < 3)
                 {
                     NameFrameColor = "#F23333";
@@ -119,8 +141,10 @@ namespace BiPoints.ViewModels.Authentication
                     NameIsNotValid = false;
                 }
             }
+
             if (type.Equals("lastname") || type.Equals("all"))
             {
+                // Check the validity of the last name.
                 if (string.IsNullOrWhiteSpace(Lastname) || Lastname.Length < 3)
                 {
                     LastnameFrameColor = "#F23333";
@@ -136,5 +160,6 @@ namespace BiPoints.ViewModels.Authentication
 
             return dataCorrect;
         }
+
     }
 }

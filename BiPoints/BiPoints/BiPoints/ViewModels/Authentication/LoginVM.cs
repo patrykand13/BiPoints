@@ -34,57 +34,91 @@ namespace BiPoints.ViewModels.Authentication
         {
             if (IsBusy)
                 return;
+
             IsBusy = true;
+
+            // Check if the user has provided a username and password.
             if (string.IsNullOrEmpty(Username) || string.IsNullOrEmpty(Password))
             {
                 await _notificationServices.AlertNotificationPopup("ErrorWrongUsernameOrPassword");
                 IsBusy = false;
                 return;
             }
+
             var response = await _loginServices.Login(Username, Password);
-            if (!response.Equals(Error))
+
+            // Check if the response is not an error.
+            if (response.Equals(Error))
             {
-                var userModel = JsonConvert.DeserializeObject<UserResponse>(response);
-                await _editProfileLocalDBServices.EditProfile(userModel.Id, userModel.Token);
-                ProfileHelper.UserId = userModel.Id;
-                ProfileHelper.Token = userModel.Token;
-                ProfileHelper.Name = userModel.Name;
-                ProfileHelper.Lastname = userModel.Lastname;
-                ProfileHelper.City = userModel.City;
-                ProfileHelper.Address = userModel.Address;
-                ProfileHelper.PhoneNumber = userModel.PhoneNumber;
-                BaseInfoHelper.Language = userModel.Language;
-                Start();
+                IsBusy = false;
+                return;
             }
-            else IsBusy = false;
+
+            var userModel = JsonConvert.DeserializeObject<UserResponse>(response);
+
+            // Update user token in the local database.
+            await _editProfileLocalDBServices.EditProfile(userModel.Id, userModel.Token);
+
+            // Update user information in ProfileHelper.
+            ProfileHelper.UserId = userModel.Id;
+            ProfileHelper.Token = userModel.Token;
+            ProfileHelper.Name = userModel.Name;
+            ProfileHelper.Lastname = userModel.Lastname;
+            ProfileHelper.City = userModel.City;
+            ProfileHelper.Address = userModel.Address;
+            ProfileHelper.PhoneNumber = userModel.PhoneNumber;
+            BaseInfoHelper.Language = userModel.Language;
+
+            // Start the main user interface.
+            Start();
+            IsBusy = false;
         }
         async Task LoginSession()
         {
             if (IsBusy)
                 return;
+
             IsBusy = true;
+
+            // Search for the local user profile.
             var localProfile = _searchLocalDBServices.SearchLocalProfile();
+
+            // If the local profile doesn't exist, exit the session login process.
             if (localProfile == null)
             {
                 IsBusy = false;
                 return;
             }
+
+            // Set the user's token based on the local profile.
             ProfileHelper.Token = localProfile.Token;
+
+            // Retrieve user information.
             var userData = await _userServices.GetInformations(localProfile.UserId);
-            if (userData != "ERROR")
+
+            // Check if user data is not an error.
+            if (userData.Equals(Error))
             {
-                var userModel = JsonConvert.DeserializeObject<PersonalUserResponse>(userData);
-                ProfileHelper.UserId = userModel.Id;
-                ProfileHelper.Name = userModel.Name;
-                ProfileHelper.Lastname = userModel.Lastname;
-                ProfileHelper.City = userModel.City;
-                ProfileHelper.Address = userModel.Address;
-                ProfileHelper.PhoneNumber = userModel.PhoneNumber;
-                BaseInfoHelper.Language = userModel.Language;
-                Start();
+                IsBusy = false;
+                return;
             }
+
+            var userModel = JsonConvert.DeserializeObject<PersonalUserResponse>(userData);
+
+            // Update user information in ProfileHelper.
+            ProfileHelper.UserId = userModel.Id;
+            ProfileHelper.Name = userModel.Name;
+            ProfileHelper.Lastname = userModel.Lastname;
+            ProfileHelper.City = userModel.City;
+            ProfileHelper.Address = userModel.Address;
+            ProfileHelper.PhoneNumber = userModel.PhoneNumber;
+            BaseInfoHelper.Language = userModel.Language;
+
+            // Start the main user interface.
+            Start();
             IsBusy = false;
         }
+
         async Task GoSignUp()
         {
             if (IsBusy)

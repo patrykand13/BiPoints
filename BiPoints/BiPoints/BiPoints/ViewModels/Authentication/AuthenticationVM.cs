@@ -15,7 +15,9 @@ namespace BiPoints.ViewModels.Authentication
         }
         protected void Start()
         {
+            // Set the default language to Polish (pl).
             CultureInfo ci = new CultureInfo("pl");
+
             if (!string.IsNullOrWhiteSpace(BaseInfoHelper.Language) && BaseInfoHelper.Language.Equals("StringPolish"))
             {
                 ci = new CultureInfo("pl");
@@ -24,10 +26,15 @@ namespace BiPoints.ViewModels.Authentication
             {
                 ci = new CultureInfo("en-US");
             }
+
+            // Set the application's culture to the selected language.
             AppResources.Culture = ci;
+            // Set the default culture for the current thread.
             CultureInfo.DefaultThreadCurrentCulture = ci;
 
+            // Set the main page of the application to AppShell.
             Application.Current.MainPage = new AppShell();
         }
+
     }
 }

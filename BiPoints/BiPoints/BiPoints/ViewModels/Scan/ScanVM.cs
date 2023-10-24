@@ -24,29 +24,39 @@ namespace BiPoints.ViewModels.Scan
             _successScanServices = DependencyService.Get<ISuccessScanServices>();
             _scanServices = DependencyService.Get<IScanServices>();
         }
+        // The Scan() method initializes the scanning process by changing the button color and setting the scan start flag.
+
         private async Task Scan()
         {
             ScanButtonColor = "#1A1A1A";
             StartScan = true;
         }
+
         public async Task ScanResult(string result)
         {
             if (IsBusy)
                 return;
+
             IsBusy = true;
             StartScan = false;
             ScanButtonColor = "#131C74";
-            if (result != null && result.Length > 3)
+
+            // Check if the scan result is not empty and has sufficient length.
+            if (result == null || result.Length <= 3)
             {
-                var scanData = await _scanServices.Scan(result);
-                if (scanData != "ERROR")
-                {
-                    var scanItemModel = JsonConvert.DeserializeObject<ItemResponse>(scanData);
-                    await _successScanServices.SuccessScanPopup(scanItemModel.Name, scanItemModel.Image);
-                }
+                await _alertNotificationServices.AlertNotificationPopup("ErrorScanFailed");
             }
-            else await _alertNotificationServices.AlertNotificationPopup("ErrorScanFailed");
+
+            var scanData = await _scanServices.Scan(result);
+            if (scanData != "ERROR")
+            {
+                // Deserialize the result data and trigger a success scanning popup.
+                var scanItemModel = JsonConvert.DeserializeObject<ItemResponse>(scanData);
+                await _successScanServices.SuccessScanPopup(scanItemModel.Name, scanItemModel.Image);
+            }
+
             IsBusy = false;
         }
+
     }
 }

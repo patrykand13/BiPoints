@@ -16,7 +16,10 @@ namespace BiPoints.BLL.Services.Scan
         {
             try
             {
+                // Retrieve scan history data from the repository.
                 var scanHistoryData = _scanRepositories.GetScanHistory(userId, skipRecords);
+
+                // Check if scan history data is available.
                 if (scanHistoryData == null)
                 {
                     return new BaseResponse
@@ -24,6 +27,8 @@ namespace BiPoints.BLL.Services.Scan
                         Status = "Success"
                     };
                 }
+
+                // Transform scan history data into appropriate response objects.
                 List<ScanHistoryItemResponse> mappedResults = new List<ScanHistoryItemResponse>();
 
                 foreach (var result in scanHistoryData)
@@ -39,6 +44,8 @@ namespace BiPoints.BLL.Services.Scan
                     };
                     mappedResults.Add(scanHistoryItem);
                 }
+
+                // Return a response with processed scan history data.
                 return new BaseResponse
                 {
                     Status = "Success",
@@ -47,6 +54,7 @@ namespace BiPoints.BLL.Services.Scan
             }
             catch
             {
+                // If an error occurred during processing, return an internal error response.
                 return new BaseResponse
                 {
                     Status = "InternalError",
@@ -54,5 +62,6 @@ namespace BiPoints.BLL.Services.Scan
                 };
             }
         }
+
     }
 }

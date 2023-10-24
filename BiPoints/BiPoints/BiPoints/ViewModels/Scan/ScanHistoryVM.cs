@@ -30,40 +30,56 @@ namespace BiPoints.ViewModels.Scan
 
             IsBusy = true;
             IsRefreshing = true;
+
             SkipRecords = 0;
             ScanHistoryList.ReplaceRange(await GetScanHistoryList());
+
             IsRefreshing = false;
             IsBusy = false;
         }
+
         private async void LoadList()
         {
             if (IsBusy)
                 return;
 
             IsBusy = true;
+
             ScanHistoryList.AddRange(await GetScanHistoryList());
+
             IsBusy = false;
         }
+
         public async Task Init()
         {
             if (IsBusy)
                 return;
 
             IsBusy = true;
-            ScanHistoryList = await GetScanHistoryList();
+
+            ScanHistoryList.ReplaceRange(await GetScanHistoryList());
+
             IsBusy = false;
         }
+
         private async Task<ObservableRangeCollection<ScanHistoryItemResponse>> GetScanHistoryList()
         {
             var helpList = new ObservableRangeCollection<ScanHistoryItemResponse>();
             var scanStatusData = await _scanServices.GetScanHistoryList(ProfileHelper.UserId, SkipRecords);
-            if (!scanStatusData.Equals(Error))
+
+            // Check if the response is not an error.
+            if (scanStatusData.Equals(Error))
             {
-                var scanStatusList = JsonConvert.DeserializeObject<ObservableRangeCollection<ScanHistoryItemResponse>>(scanStatusData);
-                SkipRecords += scanStatusList.Count;
-                helpList = scanStatusList;
+                return helpList;
             }
+
+            // Deserialize the data and update the skipped records count.
+            var scanStatusList = JsonConvert.DeserializeObject<ObservableRangeCollection<ScanHistoryItemResponse>>(scanStatusData);
+            SkipRecords += scanStatusList.Count;
+            helpList = scanStatusList;
+
             return helpList;
         }
+
     }
 }

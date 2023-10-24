@@ -16,7 +16,10 @@ namespace BiPoints.BLL.Services.User
         {
             try
             {
+                // Retrieve user data from the repository.
                 var user = _getUserRepositories.GetUserDataById(userId);
+
+                // If the user doesn't exist, return an error.
                 if (user == null)
                 {
                     return new BaseResponse
@@ -25,6 +28,8 @@ namespace BiPoints.BLL.Services.User
                         Message = "ErrorTheUserDoesntExist"
                     };
                 }
+
+                // Prepare a response containing user's personal data.
                 PersonalUserResponse userResponse = new PersonalUserResponse
                 {
                     Id = user.Id,
@@ -36,15 +41,16 @@ namespace BiPoints.BLL.Services.User
                     PhoneNumber = user.PhoneNumber,
                 };
 
+                // Return a success response with user data.
                 return new BaseResponse
                 {
                     Status = "Success",
                     Obj = userResponse
                 };
-
             }
             catch
             {
+                // If an error occurred during processing, return an internal error response.
                 return new BaseResponse
                 {
                     Status = "InternalError",
@@ -52,5 +58,6 @@ namespace BiPoints.BLL.Services.User
                 };
             }
         }
+
     }
 }

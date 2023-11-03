@@ -1,6 +1,4 @@
-﻿using Xamarin.Forms;
-
-namespace BiPoints
+﻿namespace BiPoints
 {
     public partial class AppShell : Xamarin.Forms.Shell
     {

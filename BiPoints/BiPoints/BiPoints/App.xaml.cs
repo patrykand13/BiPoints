@@ -38,6 +38,7 @@ namespace BiPoints
             DependencyService.Register<IUserServices, UserServices>();
             DependencyService.Register<IScanServices, ScanServices>();
             DependencyService.Register<IGetScanHistoryService, ScanHistoryService>();
+            DependencyService.Register<IScanPointsServices, ScanPointsServices>();
 
             //Initialize Local Database
             var localDb = new LocalDb();

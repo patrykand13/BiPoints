@@ -1,5 +1,5 @@
 ﻿using BiPoints.API;
-using BiPoints.DAL.DAO;
+using BiPoints.DAL.DAO.Scan;
 using BiPoints.DAL.Interfaces.Scan;
 
 namespace BiPoints.DAL.Repositories.Scan
@@ -26,6 +26,22 @@ namespace BiPoints.DAL.Repositories.Scan
                                        ScanSuccess = u.ScanSuccess
                                    }).Skip(skipRecords).Take(20).ToList();
             return scanHistoryList;
+        }
+        public int GetTodaysPoints(Guid userId)
+        {
+            var points = (from u in _context.ScanHistories
+                          where u.UserId == userId
+                          orderby u.AddDate
+                          select u.Points).Sum();
+            return points;
+        }
+        public int GetWeekPoints(Guid userId)
+        {
+            var points = (from u in _context.ScanHistories
+                          where u.UserId == userId
+                          orderby u.AddDate
+                          select u.Points).Sum();
+            return points;
         }
     }
 }

@@ -1,21 +1,21 @@
 ﻿using BiPoints.Interfaces.Base;
-using BiPoints.Interfaces.User;
+using BiPoints.Interfaces.Scan;
 using System;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace BiPoints.Services.User
+namespace BiPoints.Services.Scan
 {
-    class UserServices : ApiServices, IUserServices
+    class ScanPointsServices : ApiServices, IScanPointsServices
     {
         ICheckResponseServices _checkResponseServices;
-        public UserServices()
+        public ScanPointsServices()
         {
             _checkResponseServices = DependencyService.Get<ICheckResponseServices>();
         }
-        public async Task<string> GetUserData(Guid userId)
+        public async Task<string> GetPointsInformations(Guid userId)
         {
-            var response = await GetResponse("user?id=" + userId, null, true, "get");
+            var response = await GetResponse("scan/points?id=" + userId, null, true, "get");
             return await _checkResponseServices.CheckApiResponse(response, true);
         }
     }

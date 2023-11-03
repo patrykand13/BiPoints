@@ -60,7 +60,7 @@ namespace BiPoints.ViewModels.Authentication
 
             var response = await _registerServices.Register(Username, Password, Name, Lastname);
             // Check if the response is not an error.
-            if (response.Equals(Error))
+            if (CheckIfTheDataIsIncorrect(response))
             {
                 IsBusy = false;
                 return;

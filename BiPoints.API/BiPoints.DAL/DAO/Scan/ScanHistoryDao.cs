@@ -1,4 +1,4 @@
-﻿namespace BiPoints.DAL.DAO
+﻿namespace BiPoints.DAL.DAO.Scan
 {
     public class ScanHistoryDao
     {

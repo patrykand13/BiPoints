@@ -48,7 +48,7 @@ namespace BiPoints.ViewModels.Authentication
             var response = await _loginServices.Login(Username, Password);
 
             // Check if the response is not an error.
-            if (response.Equals(Error))
+            if (CheckIfTheDataIsIncorrect(response))
             {
                 IsBusy = false;
                 return;
@@ -94,10 +94,10 @@ namespace BiPoints.ViewModels.Authentication
             ProfileHelper.Token = localProfile.Token;
 
             // Retrieve user information.
-            var userData = await _userServices.GetInformations(localProfile.UserId);
+            var userData = await _userServices.GetUserData(localProfile.UserId);
 
             // Check if user data is not an error.
-            if (userData.Equals(Error))
+            if (CheckIfTheDataIsIncorrect(userData))
             {
                 IsBusy = false;
                 return;

@@ -6,7 +6,7 @@ namespace BiPoints.ViewModels
 {
     public class BaseVM : BaseViewModel
     {
-        public string Error = "ERROR";
+        string Error = "ERROR";
         public async Task PopAsync()
         {
             await Application.Current.MainPage.Navigation.PopAsync();
@@ -14,6 +14,12 @@ namespace BiPoints.ViewModels
         public async Task PushAsync(Page page)
         {
             await Application.Current.MainPage.Navigation.PushAsync(page);
+        }
+        public bool CheckIfTheDataIsIncorrect(string data)
+        {
+            if (string.IsNullOrWhiteSpace(data) || data.Equals(Error))
+                return true;
+            return false;
         }
     }
 }

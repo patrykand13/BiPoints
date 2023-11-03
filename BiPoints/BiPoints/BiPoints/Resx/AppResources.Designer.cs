@@ -88,6 +88,15 @@ namespace BiPoints.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Get BiPoints data failed.
+        /// </summary>
+        internal static string ErrorGetBiPointsDataFailed {
+            get {
+                return ResourceManager.GetString("ErrorGetBiPointsDataFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Get data failed.
         /// </summary>
         internal static string ErrorGetDataFailed {
@@ -273,6 +282,24 @@ namespace BiPoints.Resx {
         internal static string StringHistory {
             get {
                 return ResourceManager.GetString("StringHistory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to in day.
+        /// </summary>
+        internal static string StringInDay {
+            get {
+                return ResourceManager.GetString("StringInDay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to in week.
+        /// </summary>
+        internal static string StringInWeek {
+            get {
+                return ResourceManager.GetString("StringInWeek", resourceCulture);
             }
         }
         

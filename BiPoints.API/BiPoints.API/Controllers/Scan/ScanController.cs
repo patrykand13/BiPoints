@@ -32,5 +32,12 @@ namespace BiPoints.API.Controllers.User
             var response = await _scanHistoryService.GetScanHistory(userId, skipRecords);
             return ReturnActionResult(response);
         }
+        [HttpGet]
+        [Route("points")]
+        public async Task<IActionResult> GetPointsInformations([FromQuery(Name = "id"), Required] Guid userId)
+        {
+            var response = await _scanHistoryService.GetPointsInformations(userId);
+            return ReturnActionResult(response);
+        }
     }
 }

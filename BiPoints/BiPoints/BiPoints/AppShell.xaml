@@ -23,9 +23,9 @@
     </Shell.Resources>
 
     <TabBar>
-        <ShellContent Icon="homeIcon.png" ContentTemplate="{DataTemplate mainViews:HomePage}"/>
-        <ShellContent Icon="scanIcon.png" ContentTemplate="{DataTemplate scanViews:ScanPage}" />
-        <ShellContent Icon="historyIcon.png" ContentTemplate="{DataTemplate scanViews:ScanHistoryPage}" />
+        <ShellContent Icon="homeIcon.png" Route="HomePage" ContentTemplate="{DataTemplate mainViews:HomePage}"/>
+        <ShellContent Icon="scanIcon.png" Route="ScanPage" ContentTemplate="{DataTemplate scanViews:ScanPage}" />
+        <ShellContent Icon="historyIcon.png" Route="ScanHistoryPage" ContentTemplate="{DataTemplate scanViews:ScanHistoryPage}" />
     </TabBar>
 
 </Shell>

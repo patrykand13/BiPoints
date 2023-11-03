@@ -5,6 +5,6 @@ namespace BiPoints.Interfaces.User
 {
     interface IUserServices
     {
-        Task<string> GetInformations(Guid userId);
+        Task<string> GetUserData(Guid userId);
     }
 }

@@ -78,6 +78,7 @@ namespace BiPoints.API
             services.AddScoped<IScanHistoryRepositories, ScanHistoryRepositories>();
             services.AddScoped<IAddPointsRepositories, AddPointsRepositories>();
             services.AddScoped<IScanRepositories, ScanRepositories>();
+            services.AddScoped<IGetPointRepositories, GetPointRepositories>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

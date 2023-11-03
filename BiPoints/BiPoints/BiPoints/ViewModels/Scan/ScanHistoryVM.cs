@@ -68,7 +68,7 @@ namespace BiPoints.ViewModels.Scan
             var scanStatusData = await _scanServices.GetScanHistoryList(ProfileHelper.UserId, SkipRecords);
 
             // Check if the response is not an error.
-            if (scanStatusData.Equals(Error))
+            if (CheckIfTheDataIsIncorrect(scanStatusData))
             {
                 return helpList;
             }

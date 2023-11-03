@@ -126,6 +126,9 @@
   <data name="ErrorDuplicate" xml:space="preserve">
     <value>Duplicate. Scan another code</value>
   </data>
+  <data name="ErrorGetBiPointsDataFailed" xml:space="preserve">
+    <value>Get BiPoints data failed</value>
+  </data>
   <data name="ErrorGetDataFailed" xml:space="preserve">
     <value>Get data failed</value>
   </data>
@@ -188,6 +191,12 @@
   </data>
   <data name="StringHistory" xml:space="preserve">
     <value>History</value>
+  </data>
+  <data name="StringInDay" xml:space="preserve">
+    <value>in day</value>
+  </data>
+  <data name="StringInWeek" xml:space="preserve">
+    <value>in week</value>
   </data>
   <data name="StringLastname" xml:space="preserve">
     <value>Lastname</value>

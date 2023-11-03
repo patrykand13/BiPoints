@@ -48,12 +48,14 @@ namespace BiPoints.ViewModels.Scan
             }
 
             var scanData = await _scanServices.Scan(result);
-            if (scanData != "ERROR")
+            if (CheckIfTheDataIsIncorrect(scanData))
             {
-                // Deserialize the result data and trigger a success scanning popup.
-                var scanItemModel = JsonConvert.DeserializeObject<ItemResponse>(scanData);
-                await _successScanServices.SuccessScanPopup(scanItemModel.Name, scanItemModel.Image);
+                IsBusy = false;
+                return;
             }
+            // Deserialize the result data and trigger a success scanning popup.
+            var scanItemModel = JsonConvert.DeserializeObject<ItemResponse>(scanData);
+            await _successScanServices.SuccessScanPopup(scanItemModel.Name, scanItemModel.Image);
 
             IsBusy = false;
         }

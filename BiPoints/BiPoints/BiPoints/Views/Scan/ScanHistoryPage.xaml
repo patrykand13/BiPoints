@@ -1,0 +1,201 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BiPoints.Views.Scan.ScanHistoryPage"
+             xmlns:resx="clr-namespace:BiPoints.Resx"
+             xmlns:baseTemplates="clr-namespace:BiPoints.Views.Base.Templates"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="{DynamicResource LittleBlueBackgroundColor}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid
+            Grid.Row="0">
+            <Grid.Padding>
+                <OnPlatform x:TypeArguments="Thickness">
+                    <On Platform="iOS" Value="30,40,30,0"/>
+                    <On Platform="Android" Value="30,0,30,0"/>
+                </OnPlatform>
+            </Grid.Padding>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <!-- History Label-->
+            <Label 
+                Grid.Row="0"
+                Padding="0,20,0,40"
+                Text="{x:Static resx:AppResources.StringHistory}"
+                FontSize="24"
+                TextColor="{DynamicResource BaseTextColor}"
+                Style="{StaticResource LabelBoldStyle}"
+                HorizontalOptions="Center"
+                VerticalOptions="Start"/>
+            <RefreshView 
+                IsRefreshing="{Binding IsRefreshing}"
+                Command="{Binding RefreshCommand}"
+                Grid.Row="1">
+                <CollectionView
+                    ItemsSource="{Binding ScanHistoryList}"
+                    RemainingItemsThreshold="0"
+                    RemainingItemsThresholdReachedCommand="{Binding LoadListCommand}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <!-- Product Info -->
+                            <Grid
+                                Padding="0,0,0,20">
+                                <Frame
+                                    Grid.Row="0"
+                                    Padding="0"
+                                    BorderColor="{DynamicResource FullTransparentBackgroundColor}"
+                                    BackgroundColor="{DynamicResource BaseWhiteBackgroundColor}"
+                                    IsClippedToBounds="True"
+                                    CornerRadius="20"
+                                    VerticalOptions="FillAndExpand"
+                                    HorizontalOptions="FillAndExpand">
+                                    <Grid
+                                        Margin="20">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <!-- Image And Name -->
+                                        <StackLayout
+                                            Grid.Row="0"
+                                            HorizontalOptions="FillAndExpand"
+                                            VerticalOptions="Start"
+                                            Orientation="Horizontal">
+                                            <Image
+                                                WidthRequest="100"
+                                                HeightRequest="100"
+                                                Source="{Binding Image}"/>
+                                            <Label
+                                                Text="{Binding Name}"
+                                                FontSize="16"
+                                                TextColor="{DynamicResource ShadowTextColor}"
+                                                Style="{StaticResource LabelBoldStyle}"
+                                                HorizontalOptions="FillAndExpand"
+                                                VerticalOptions="Center"/>
+                                        </StackLayout>
+                                        <!-- State -->
+                                        <StackLayout
+                                            Grid.Row="1"
+                                            HorizontalOptions="FillAndExpand"
+                                            VerticalOptions="Start"
+                                            Orientation="Horizontal">
+                                            <Label
+                                                Text="{x:Static resx:AppResources.StringState}"
+                                                FontSize="14"
+                                                TextColor="{DynamicResource BaseTextColor}"
+                                                Style="{StaticResource LabelBoldStyle}"
+                                                HorizontalOptions="FillAndExpand"
+                                                VerticalOptions="Start"/>
+                                            <Label
+                                                IsVisible="{Binding SuccessVisible}"
+                                                Text="{x:Static resx:AppResources.StringSuccess}"
+                                                FontSize="14"
+                                                TextColor="{DynamicResource GreenTextColor}"
+                                                Style="{StaticResource LabelBoldStyle}"
+                                                HorizontalOptions="End"
+                                                VerticalOptions="Start"/>
+                                            <Label
+                                                IsVisible="{Binding DuplicateVisible}"
+                                                Text="{x:Static resx:AppResources.StringDuplicate}"
+                                                FontSize="14"
+                                                TextColor="{DynamicResource ErrorTextColor}"
+                                                Style="{StaticResource LabelBoldStyle}"
+                                                HorizontalOptions="End"
+                                                VerticalOptions="Start"/>
+                                        </StackLayout>
+                                        <!-- Points Amount -->
+                                        <StackLayout
+                                            Grid.Row="2"
+                                            HorizontalOptions="FillAndExpand"
+                                            VerticalOptions="Start"
+                                            Orientation="Horizontal">
+                                            <Label
+                                                Text="{x:Static resx:AppResources.StringPointsAmount}"
+                                                FontSize="14"
+                                                TextColor="{DynamicResource BaseTextColor}"
+                                                Style="{StaticResource LabelBoldStyle}"
+                                                HorizontalOptions="FillAndExpand"
+                                                VerticalOptions="Start"/>
+                                            <Label
+                                                Text="{Binding Points}"
+                                                FontSize="14"
+                                                TextColor="{DynamicResource DarkBlueTextColor}"
+                                                Style="{StaticResource LabelBoldStyle}"
+                                                HorizontalOptions="End"
+                                                VerticalOptions="Start"/>
+                                        </StackLayout>
+                                        <!-- Date Added -->
+                                        <StackLayout
+                                            Grid.Row="3"
+                                            HorizontalOptions="FillAndExpand"
+                                            VerticalOptions="Start"
+                                            Orientation="Horizontal">
+                                            <Label
+                                                Text="{x:Static resx:AppResources.StringDateAdded}"
+                                                FontSize="14"
+                                                TextColor="{DynamicResource BaseTextColor}"
+                                                Style="{StaticResource LabelBoldStyle}"
+                                                HorizontalOptions="FillAndExpand"
+                                                VerticalOptions="Start"/>
+                                            <Label
+                                                Text="{Binding DateAdded}"
+                                                FontSize="14"
+                                                TextColor="{DynamicResource DarkBlueTextColor}"
+                                                Style="{StaticResource LabelBoldStyle}"
+                                                HorizontalOptions="End"
+                                                VerticalOptions="Start"/>
+                                        </StackLayout>
+                                    </Grid>
+                                </Frame>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </RefreshView>
+            <StackLayout
+                Grid.Row="1"
+                VerticalOptions="Center"
+                HorizontalOptions="FillAndExpand"
+                IsVisible="{Binding EmptyListVisible}">
+                <!-- LOGO -->
+                <Image
+                    HeightRequest="80"
+                    WidthRequest="80"
+                    HorizontalOptions="Center"
+                    Source="biIcon.png"
+                    Margin="0,0,0,30"/>
+                <!-- NothingHasBeenScannedYet  Label-->
+                <Label 
+                    Text="{x:Static resx:AppResources.ErrorNothingHasBeenScannedYet}"
+                    FontSize="16"
+                    TextColor="{DynamicResource BaseTextColor}"
+                    Style="{StaticResource LabelBoldStyle}"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"/>
+            </StackLayout>
+        </Grid>
+        <!-- Loading gif -->
+        <ActivityIndicator 
+            Grid.Row="0"
+            Color="{DynamicResource LoadingColor}"
+            IsRunning="{Binding IsBusy}"
+            HorizontalOptions="Center"
+            VerticalOptions="End"
+            TranslationY="-40"
+            InputTransparent="True"/>
+        <!-- Loading view-->
+        <baseTemplates:LoadingTemplate 
+            Grid.Row="0"
+            x:Name="loader"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="FillAndExpand"
+            IsVisible="True"/>
+    </Grid>
+</ContentPage>

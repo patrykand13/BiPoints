@@ -1,0 +1,289 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BiPoints.Views.Authentication.RegisterPage"
+             NavigationPage.HasNavigationBar="false"
+             xmlns:resx="clr-namespace:BiPoints.Resx"
+             xmlns:customControl="clr-namespace:BiPoints.CustomControl"
+             xmlns:baseTemplates="clr-namespace:BiPoints.Views.Base.Templates"
+             BackgroundColor="{DynamicResource MainBackgroundColor}">
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <!-- Register page-->
+            <ScrollView
+                Grid.Row="0"
+                VerticalScrollBarVisibility="Never">
+                <Grid>
+                    <Grid.Padding>
+                        <OnPlatform x:TypeArguments="Thickness">
+                            <On Platform="iOS" Value="20,40,20,60"/>
+                            <On Platform="Android" Value="20,0,20,60"/>
+                        </OnPlatform>
+                    </Grid.Padding>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <!-- LOGO -->
+                    <baseTemplates:LogoTemplate Grid.Row="0"/>
+                    <!---FIELDS CONTAINER-->
+                    <Grid
+						Grid.Row="1"
+						Padding="0,40,0,30"
+						VerticalOptions="Start">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <!-- Username -->
+                        <Grid
+                            Grid.Row="0"
+                            VerticalOptions="Start"
+                            HorizontalOptions="FillAndExpand">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <!-- Username Label -->
+                            <Label
+                                Grid.Row="0"
+                                HorizontalOptions="Start"
+                                VerticalOptions="Center"
+                                FontSize="18"
+                                Text="{x:Static resx:AppResources.StringUsername}"
+                                TextColor="{DynamicResource BaseTextColor}"
+                                Style="{StaticResource LabelBoldStyle}"/>
+                            <Frame
+                                Grid.Row="1"
+                                Padding="0"
+                                BorderColor="{Binding UsernameFrameColor}"
+                                BackgroundColor="{DynamicResource FullTransparentBackgroundColor}"
+                                IsClippedToBounds="True"
+                                CornerRadius="10"
+                                HeightRequest="40"
+                                HorizontalOptions="FillAndExpand">
+                                <!--Username ENTRY-->
+                                <customControl:CustomEntry
+                                    Text="{Binding Username}"
+                                    Margin="15,0,15,0"
+                                    ClearButtonVisibility="WhileEditing"
+							        VerticalOptions="Center"
+							        HorizontalOptions="FillAndExpand"
+                                    TextColor="{DynamicResource BaseTextColor}"
+                                    Keyboard="Text"
+                                    FontSize="16" />
+                            </Frame>
+                            <Label 
+                                Grid.Row="2"
+                                IsVisible="{Binding UsernameIsNotValid}"
+                                Text="{x:Static resx:AppResources.ErrorShouldContain3Char}"
+                                TextColor="{DynamicResource ErrorTextColor}"
+                                FontSize="12"/>
+                        </Grid>
+                        <!-- Password -->
+                        <Grid
+                            Grid.Row="1"
+                            VerticalOptions="Start"
+                            HorizontalOptions="FillAndExpand"
+                            Padding="0,15,0,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <!-- Password Label -->
+                            <Label
+                                Grid.Row="0"
+                                HorizontalOptions="Start"
+                                VerticalOptions="Center"
+                                FontSize="18"
+                                Text="{x:Static resx:AppResources.StringPassword}"
+                                TextColor="{DynamicResource BaseTextColor}"
+                                Style="{StaticResource LabelBoldStyle}"/>
+                            <Frame
+                                Grid.Row="1"
+                                Padding="0"
+                                BorderColor="{Binding PasswordFrameColor}"
+                                BackgroundColor="{DynamicResource FullTransparentBackgroundColor}"
+                                IsClippedToBounds="True"
+                                CornerRadius="10"
+                                HeightRequest="40"
+                                HorizontalOptions="FillAndExpand">
+                                <!--Password ENTRY-->
+                                <customControl:CustomEntry
+                                    Text="{Binding Password}"
+                                    Margin="15,0,15,0"
+                                    ClearButtonVisibility="WhileEditing"
+							        VerticalOptions="Center"
+							        HorizontalOptions="FillAndExpand"
+                                    TextColor="{DynamicResource BaseTextColor}"
+                                    Keyboard="Text"
+                                    IsPassword="True"
+                                    FontSize="16" />
+                            </Frame>
+                            <Label 
+                                Grid.Row="2"
+                                IsVisible="{Binding PasswordIsNotValid}"
+                                Text="{x:Static resx:AppResources.ErrorShouldContain3Char}"
+                                TextColor="{DynamicResource ErrorTextColor}"
+                                FontSize="12"/>
+                        </Grid>
+                        <!-- Name -->
+                        <Grid
+                            Grid.Row="2"
+                            VerticalOptions="Start"
+                            HorizontalOptions="FillAndExpand"
+                            Padding="0,15,0,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <!-- Name Label -->
+                            <Label
+                                Grid.Row="0"
+                                HorizontalOptions="Start"
+                                VerticalOptions="Center"
+                                FontSize="18"
+                                Text="{x:Static resx:AppResources.StringName}"
+                                TextColor="{DynamicResource BaseTextColor}"
+                                Style="{StaticResource LabelBoldStyle}"/>
+                            <Frame
+                                Grid.Row="1"
+                                Padding="0"
+                                BorderColor="{Binding NameFrameColor}"
+                                BackgroundColor="{DynamicResource FullTransparentBackgroundColor}"
+                                IsClippedToBounds="True"
+                                CornerRadius="10"
+                                HeightRequest="40"
+                                HorizontalOptions="FillAndExpand">
+                                <!-- Name ENTRY-->
+                                <customControl:CustomEntry
+                                    Text="{Binding Name}"
+                                    Margin="15,0,15,0"
+                                    ClearButtonVisibility="WhileEditing"
+							        VerticalOptions="Center"
+							        HorizontalOptions="FillAndExpand"
+                                    TextColor="{DynamicResource BaseTextColor}"
+                                    Keyboard="Text"
+                                    FontSize="16" />
+                            </Frame>
+                            <Label 
+                                Grid.Row="2"
+                                IsVisible="{Binding NameIsNotValid}"
+                                Text="{x:Static resx:AppResources.ErrorShouldContain3Char}"
+                                TextColor="{DynamicResource ErrorTextColor}"
+                                FontSize="12"/>
+                        </Grid>
+                        <!-- Lastname -->
+                        <Grid
+                            Grid.Row="3"
+                            VerticalOptions="Start"
+                            HorizontalOptions="FillAndExpand"
+                            Padding="0,15,0,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <!-- Lastname Label -->
+                            <Label
+                                Grid.Row="0"
+                                HorizontalOptions="Start"
+                                VerticalOptions="Center"
+                                FontSize="18"
+                                Text="{x:Static resx:AppResources.StringLastname}"
+                                TextColor="{DynamicResource BaseTextColor}"
+                                Style="{StaticResource LabelBoldStyle}"/>
+                            <Frame
+                                Grid.Row="1"
+                                Padding="0"
+                                BorderColor="{Binding LastnameFrameColor}"
+                                BackgroundColor="{DynamicResource FullTransparentBackgroundColor}"
+                                IsClippedToBounds="True"
+                                CornerRadius="10"
+                                HeightRequest="40"
+                                HorizontalOptions="FillAndExpand">
+                                <!-- Lastname ENTRY-->
+                                <customControl:CustomEntry
+                                    Text="{Binding Lastname}"
+                                    Margin="15,0,15,0"
+                                    ClearButtonVisibility="WhileEditing"
+							        VerticalOptions="Center"
+							        HorizontalOptions="FillAndExpand"
+                                    TextColor="{DynamicResource BaseTextColor}"
+                                    Keyboard="Text"
+                                    FontSize="16" />
+                            </Frame>
+                            <Label 
+                                Grid.Row="2"
+                                IsVisible="{Binding LastnameIsNotValid}"
+                                Text="{x:Static resx:AppResources.ErrorShouldContain3Char}"
+                                TextColor="{DynamicResource ErrorTextColor}"
+                                FontSize="12"/>
+                        </Grid>
+                    </Grid>
+                    <!-- Sign Up button-->
+                    <Frame
+                        Grid.Row="2"
+                        Padding="0"
+                        BorderColor="{DynamicResource FullTransparentBackgroundColor}"
+                        BackgroundColor="{DynamicResource DarkBlueBackgroundColor}"
+                        IsClippedToBounds="True"
+                        CornerRadius="25"
+                        HeightRequest="50"
+                        HorizontalOptions="FillAndExpand">
+                        <Label
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center"
+                            FontSize="18"
+                            Text="{x:Static resx:AppResources.StringSignUp}"
+                            TextColor="{DynamicResource WhiteTextColor}"
+                            Style="{StaticResource LabelBoldStyle}"/>
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SignUpCommand}"/>
+                        </Frame.GestureRecognizers>
+                    </Frame>
+                    <StackLayout
+                        Grid.Row="3"
+                        Orientation="Horizontal"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        Padding="0,5,0,40">
+                        <Label
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center"
+                            FontSize="11"
+                            Text="{x:Static resx:AppResources.StringAlreadyHaveAnAccount}"
+                            TextColor="{DynamicResource BaseTextColor}"/>
+                        <Label
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center"
+                            FontSize="11"
+                            Text="{x:Static resx:AppResources.StringLogin}"
+                            TextColor="{DynamicResource DarkBlueBackgroundColor}"
+                            Style="{StaticResource LabelBoldStyle}"/>
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding GoLoginCommand}"/>
+                        </StackLayout.GestureRecognizers>
+                    </StackLayout>
+                </Grid>
+            </ScrollView>
+            <!-- Loading gif -->
+            <ActivityIndicator 
+                Grid.Row="0"
+                Color="{DynamicResource LoadingColor}"
+                IsRunning="{Binding IsBusy}"
+                HorizontalOptions="Center"
+                VerticalOptions="End"
+                TranslationY="-40"
+                InputTransparent="True"/>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

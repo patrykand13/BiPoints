@@ -1,0 +1,32 @@
+﻿<ResourceDictionary xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="BiPoints.MyAppTheme">
+    <!-- Background Color -->
+    <Color x:Key="NavigationBarBackgroundColor">#F2F2F2</Color>
+    <Color x:Key="BaseWhiteBackgroundColor">#ffffff</Color>
+    <Color x:Key="FullTransparentBackgroundColor">#00000000</Color>
+    <Color x:Key="DarkBlueBackgroundColor">#131C74</Color>
+    <Color x:Key="LittleBlueBackgroundColor">#DFF1FF</Color>
+    <Color x:Key="MainBackgroundColor">#F9F9F9</Color>
+    <Color x:Key="RedBackgroundColor">#F23333</Color>
+    <Color x:Key="ShadowBackgroundColor">#EEEEEE</Color>
+    <Color x:Key="MediumTransparentBackgroundColor">#AA000000</Color>
+
+    <!-- Text Color -->
+    <Color x:Key="NavigationBarTextColor">#151624</Color>
+    <Color x:Key="DarkBlueTextColor">#131C74</Color>
+    <Color x:Key="WelcomeTextColor">#131C74</Color>
+    <Color x:Key="WhiteTextColor">#FCFCFC</Color>
+    <Color x:Key="BaseTextColor">#3B3B3B</Color>
+    <Color x:Key="ErrorTextColor">#F23333</Color>
+    <Color x:Key="ShadowTextColor">#848484</Color>
+    <Color x:Key="GreenTextColor">#1DB71D</Color>
+    
+    <!-- Other Color -->
+    <Color x:Key="LoadingColor">#131C74</Color>
+    <Color x:Key="AchievementsBorderColor">#131C74</Color>
+    
+    <!-- Ring Color -->
+    <Color x:Key="LowRingColor">#FF6466</Color>
+    <Color x:Key="MediumRingColor">#FF9E50</Color>
+    <Color x:Key="MaxRingColor">#4DC591</Color>
+
+</ResourceDictionary>

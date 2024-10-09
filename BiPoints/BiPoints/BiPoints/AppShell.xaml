@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Shell xmlns="http://xamarin.com/schemas/2014/forms" 
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:local="clr-namespace:BiPoints"
+       xmlns:mainViews="clr-namespace:BiPoints.Views.Main"
+       xmlns:scanViews="clr-namespace:BiPoints.Views.Scan"
+       Title="BiPoints"
+       x:Class="BiPoints.AppShell"
+       NavigationPage.HasNavigationBar="False">
+
+    <!--
+        The overall app visual hierarchy is defined here, along with navigation.
+    
+        https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/shell/
+    -->
+
+    <Shell.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <local:MyAppTheme/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Shell.Resources>
+
+    <TabBar>
+        <ShellContent Icon="homeIcon.png" Route="HomePage" ContentTemplate="{DataTemplate mainViews:HomePage}"/>
+        <ShellContent Icon="scanIcon.png" Route="ScanPage" ContentTemplate="{DataTemplate scanViews:ScanPage}" />
+        <ShellContent Icon="historyIcon.png" Route="ScanHistoryPage" ContentTemplate="{DataTemplate scanViews:ScanHistoryPage}" />
+    </TabBar>
+
+</Shell>

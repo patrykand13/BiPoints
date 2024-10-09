@@ -1,0 +1,67 @@
+﻿<pages:PopupPage
+	xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+    xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+    x:Class="BiPoints.Popups.Base.NotificationAlertPopup"
+    xmlns:resx="clr-namespace:BiPoints.Resx"
+    CloseWhenBackgroundIsClicked="True"
+	BackgroundColor="Transparent"
+	x:Name="Root">
+
+    <pages:PopupPage.Animation>
+        <animations:MoveAnimation
+			PositionIn="Top"
+			PositionOut="Top" />
+    </pages:PopupPage.Animation>
+    <Grid
+		Margin="20"
+		VerticalOptions="Start"
+        HorizontalOptions="FillAndExpand">
+        <Frame
+            Padding="0"
+            IsClippedToBounds="True"
+			CornerRadius="20"
+            VerticalOptions="Center"
+            HorizontalOptions="FillAndExpand"
+			BackgroundColor="{DynamicResource BaseWhiteBackgroundColor}">
+            <Grid
+                Margin="20"
+			    ColumnSpacing="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition
+					Width="Auto" />
+                    <ColumnDefinition
+					Width="*" />
+                </Grid.ColumnDefinitions>
+                <!-- Alert Icon -->
+                <Image
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    HeightRequest="65"
+                    WidthRequest="65"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Start"
+                    Source="AlertIcon.png"/>
+                <!-- Description -->
+                <StackLayout 
+                    Grid.Column="1"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Start">
+                    <Label
+                        HorizontalTextAlignment="Start"
+				        Text="{x:Static resx:AppResources.Error}"
+                        TextColor="{DynamicResource BaseTextColor}"
+                        Style="{ StaticResource LabelBoldStyle }"
+                        FontSize="14"/>
+                    <Label
+                        HorizontalTextAlignment="Start"
+				        Text="{ Binding Message, Source={x:Reference Root} }"
+                        TextColor="{DynamicResource BaseTextColor}"
+                        FontSize="12"/>
+                </StackLayout>
+            </Grid>
+        </Frame>
+    </Grid>
+
+</pages:PopupPage>

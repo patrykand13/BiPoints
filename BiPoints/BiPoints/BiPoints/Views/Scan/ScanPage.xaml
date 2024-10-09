@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BiPoints.Views.Scan.ScanPage"
+             xmlns:zxing="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms"
+             xmlns:baseTemplates="clr-namespace:BiPoints.Views.Base.Templates"
+             xmlns:resx="clr-namespace:BiPoints.Resx"
+             Shell.NavBarIsVisible="False"
+            BackgroundColor="{DynamicResource MainBackgroundColor}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid
+            Grid.Row="0">
+            <Grid.Padding>
+                <OnPlatform x:TypeArguments="Thickness">
+                    <On Platform="iOS" Value="30,40,30,0"/>
+                    <On Platform="Android" Value="30,0,30,0"/>
+                </OnPlatform>
+            </Grid.Padding>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <!-- Scan The EAN Label -->
+            <Grid 
+                Grid.Row="0"
+                Margin="0,15,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Label 
+                    Text="{x:Static resx:AppResources.StringScanTheQrCode}"
+                    TextColor="{DynamicResource BaseTextColor}"
+                    Style="{StaticResource LabelBoldStyle}"
+                    FontSize="20"
+                    VerticalOptions="Center"/>
+                <Image
+                    Grid.Column="1"
+                    HeightRequest="70"
+                    WidthRequest="70"
+                    HorizontalOptions="End"
+                    VerticalOptions="Center"
+                    Source="scanBlackIcon.png"/>
+            </Grid>
+            <!-- Scanner View -->
+            <zxing:ZXingScannerView
+                Grid.Row="1"
+                x:Name="scannerView"
+                IsScanning="True"
+                OnScanResult="ZXingScannerView_OnScanResult"/>
+            <!-- Scan Button -->
+            <Frame
+                Grid.Row="2"
+                Margin="0,10,0,15"
+                Padding="0"
+                BorderColor="{DynamicResource FullTransparentBackgroundColor}"
+                BackgroundColor="{Binding ScanButtonColor}"
+                IsClippedToBounds="True"
+                CornerRadius="10"
+                HeightRequest="60"
+                HorizontalOptions="FillAndExpand">
+                <Label
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    FontSize="18"
+                    Text="{x:Static resx:AppResources.StringScan}"
+                    TextColor="{DynamicResource WhiteTextColor}"
+                    Style="{StaticResource LabelBoldStyle}"/>
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ScanCommand}"/>
+                </Frame.GestureRecognizers>
+            </Frame>
+        </Grid>
+        <!-- Loading gif -->
+        <ActivityIndicator 
+            Grid.Row="0"
+            Color="{DynamicResource LoadingColor}"
+            IsRunning="{Binding IsBusy}"
+            HorizontalOptions="Center"
+            VerticalOptions="End"
+            TranslationY="-40"
+            InputTransparent="True"/>
+        <!-- Loading view-->
+        <baseTemplates:LoadingTemplate 
+            Grid.Row="0"
+            x:Name="loader"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="FillAndExpand"
+            IsVisible="True"/>
+    </Grid>
+</ContentPage>

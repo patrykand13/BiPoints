@@ -1,0 +1,422 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BiPoints.Views.Main.HomePage"
+             BackgroundColor="{DynamicResource MainBackgroundColor}"
+             Shell.NavBarIsVisible="False"
+             xmlns:baseTemplates="clr-namespace:BiPoints.Views.Base.Templates"
+             xmlns:resx="clr-namespace:BiPoints.Resx"
+             xmlns:control="clr-namespace:ProgressRingControl.Forms.Plugin;assembly=ProgressRing.Forms.Plugin">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <!-- Home page-->
+        <ScrollView
+            Grid.Row="0"
+            VerticalScrollBarVisibility="Never">
+            <Grid>
+                <Grid.Padding>
+                    <OnPlatform x:TypeArguments="Thickness">
+                        <On Platform="iOS" Value="30,40,30,60"/>
+                        <On Platform="Android" Value="30,0,30,60"/>
+                    </OnPlatform>
+                </Grid.Padding>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <!-- Welcome Label-->
+                <Grid
+                    Grid.Row="0"
+                    Padding="0,30,0,60">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Label 
+                        Grid.Column="0"
+                        Text="{x:Static resx:AppResources.StringWelcome}"
+                        FontSize="24"
+                        TextColor="{DynamicResource WelcomeTextColor}"
+                        Style="{StaticResource LabelBoldStyle}"
+                        HorizontalOptions="Start"
+                        VerticalOptions="Start"/>
+                    <Label 
+                        Grid.Column="1"
+                        Text="{Binding Name}"
+                        FontSize="24"
+                        TextColor="{DynamicResource WelcomeTextColor}"
+                        Style="{StaticResource LabelBoldStyle}"
+                        HorizontalOptions="Start"
+                        VerticalOptions="Start"/>
+                    <!-- Sing out Button-->
+                    <Frame
+                        Grid.Column="2"
+                        Padding="0"
+                        BorderColor="{DynamicResource FullTransparentBackgroundColor}"
+                        BackgroundColor="{DynamicResource RedBackgroundColor}"
+                        IsClippedToBounds="True"
+                        CornerRadius="5"
+                        HeightRequest="30"
+                        WidthRequest="30">
+                        <Image
+                            HeightRequest="16"
+                            WidthRequest="14"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center"
+                            Source="logout.png"/>
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SignOutCommand}"/>
+                        </Frame.GestureRecognizers>
+                    </Frame>
+                </Grid>
+                <!-- Go scan Button -->
+                <StackLayout
+                    Grid.Row="1"
+                    HeightRequest="90">
+                    <Frame
+                        Padding="0"
+                        BorderColor="{DynamicResource FullTransparentBackgroundColor}"
+                        BackgroundColor="{DynamicResource DarkBlueBackgroundColor}"
+                        IsClippedToBounds="True"
+                        CornerRadius="14"
+                        HeightRequest="90"
+                        HorizontalOptions="FillAndExpand">
+                        <Grid 
+                            Padding="15">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Image
+                                Grid.Column="0"
+                                HeightRequest="54"
+                                WidthRequest="65"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center"
+                                Source="scanIcon.png"/>
+                            <Label
+                                Grid.Column="1"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center"
+                                FontSize="22"
+                                Text="{x:Static resx:AppResources.StringGetPoints}"
+                                TextColor="{DynamicResource WhiteTextColor}"
+                                Style="{StaticResource LabelBoldStyle}"/>
+                        </Grid>
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding GoScanCommand}"/>
+                        </Frame.GestureRecognizers>
+                    </Frame>
+                </StackLayout>
+                <!-- Your point Label-->
+                <Label
+                    Grid.Row="2"
+                    Margin="0,25,0,0"
+                    HorizontalOptions="Start"
+                    VerticalOptions="Center"
+                    FontSize="18"
+                    Text="{x:Static resx:AppResources.StringYourPoints}"
+                    TextColor="{DynamicResource BaseTextColor}"
+                    Style="{StaticResource LabelBoldStyle}"/>
+                <!-- All BiPoints-->
+                <StackLayout
+                    Grid.Row="3"
+                    HeightRequest="80">
+                    <Frame
+                        Padding="0"
+                        BorderColor="{DynamicResource FullTransparentBackgroundColor}"
+                        BackgroundColor="{DynamicResource LittleBlueBackgroundColor}"
+                        IsClippedToBounds="True"
+                        CornerRadius="20"
+                        HeightRequest="80"
+                        HorizontalOptions="FillAndExpand">
+                        <Grid
+                            Padding="15">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="50"/>
+                            </Grid.RowDefinitions>
+                            <Image
+                                Grid.Column="0"
+                                HeightRequest="52"
+                                WidthRequest="52"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center"
+                                Source="biIcon.png"/>
+                            <Label
+                                Grid.Column="1"
+                                Padding="-40,0,0,0"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center"
+                                FontSize="24"
+                                Text="{Binding BiPoints, StringFormat='{0} bp'}"
+                                TextColor="{DynamicResource DarkBlueBackgroundColor}"
+                                Style="{StaticResource LabelBoldStyle}"/>
+                        </Grid>
+                    </Frame>
+                </StackLayout>
+                <!-- BiPoints for use and used-->
+                <Grid
+                    Grid.Row="4"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="Start"
+                    ColumnSpacing="15"
+                    Margin="0,5,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <!-- BiPoints For Use -->
+                    <Frame
+                        Grid.Column="0"
+                        Padding="0"
+                        BorderColor="{DynamicResource FullTransparentBackgroundColor}"
+                        BackgroundColor="{DynamicResource LittleBlueBackgroundColor}"
+                        IsClippedToBounds="True"
+                        CornerRadius="20"
+                        HeightRequest="80"
+                        HorizontalOptions="FillAndExpand">
+                        <Grid
+                            Padding="15">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="50"/>
+                            </Grid.RowDefinitions>
+                            <StackLayout
+                                Grid.Row="0"
+                                Padding="13,0,0,0"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center">
+                                <Label
+                                    Text="{Binding BiPointsForUse, StringFormat='{0} bp'}"
+                                    FontSize="18"
+                                    TextColor="{DynamicResource DarkBlueBackgroundColor}"
+                                    Style="{StaticResource LabelBoldStyle}"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="Center"/>
+                                <Label
+                                    Text="{x:Static resx:AppResources.StringForUse}"
+                                    FontSize="14"
+                                    TextColor="{DynamicResource BaseTextColor}"
+                                    Style="{StaticResource LabelBoldStyle}"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="Center"/>
+                            </StackLayout>
+                        </Grid>
+                    </Frame>
+                    <!-- BiPoints Used -->
+                    <Frame
+                        Grid.Column="1"
+                        Padding="0"
+                        BorderColor="{DynamicResource FullTransparentBackgroundColor}"
+                        BackgroundColor="{DynamicResource LittleBlueBackgroundColor}"
+                        IsClippedToBounds="True"
+                        CornerRadius="20"
+                        HeightRequest="80"
+                        HorizontalOptions="FillAndExpand">
+                        <Grid
+                            Padding="15">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="50"/>
+                            </Grid.RowDefinitions>
+                            <StackLayout
+                                Grid.Row="0"
+                                Padding="13,0,0,0"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center">
+                                <Label
+                                    Text="{Binding BiPointsUsed, StringFormat='{0} bp'}"
+                                    FontSize="18"
+                                    TextColor="{DynamicResource DarkBlueBackgroundColor}"
+                                    Style="{StaticResource LabelBoldStyle}"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="Center"/>
+                                <Label
+                                    Text="{x:Static resx:AppResources.StringUsed}"
+                                    FontSize="14"
+                                    TextColor="{DynamicResource BaseTextColor}"
+                                    Style="{StaticResource LabelBoldStyle}"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="Center"/>
+                            </StackLayout>
+                        </Grid>
+                    </Frame>
+                </Grid>
+                <!-- Achievements -->
+                <Label
+                    Grid.Row="5"
+                    Margin="0,25,0,0"
+                    HorizontalOptions="Start"
+                    VerticalOptions="Center"
+                    FontSize="18"
+                    Text="{x:Static resx:AppResources.StringAchievements}"
+                    TextColor="{DynamicResource BaseTextColor}"
+                    Style="{StaticResource LabelBoldStyle}"/>
+                <Grid
+                    Grid.Row="6"
+                    HeightRequest="145"
+                    HorizontalOptions="FillAndExpand"
+                    ColumnSpacing="25"
+                    Margin="0,10,0,25">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Frame
+                        Grid.Column="0"
+                        Padding="0"
+                        BorderColor="{DynamicResource AchievementsBorderColor}"
+                        BackgroundColor="{DynamicResource FullTransparentBackgroundColor}"
+                        IsClippedToBounds="True"
+                        CornerRadius="20"
+                        HeightRequest="145"
+                        WidthRequest="145"
+                        HorizontalOptions="FillAndExpand">
+                        <Grid
+                            Padding="10"
+                            HorizontalOptions="FillAndExpand"
+                            VerticalOptions="FillAndExpand">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="95"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <!-- Day Achievement-->
+                            <control:ProgressRing 
+                                Grid.Row="0"
+                                HeightRequest="95" 
+                                WidthRequest="95" 
+                                RingBaseColor="{DynamicResource ShadowBackgroundColor}"
+                                RingProgressColor="{Binding DayAchievementColor}" 
+                                RingThickness="5"  
+                                Progress="{Binding DayAchievementProgress}"/>
+                            <!-- Day Achievement Percent-->
+                            <Label  
+                                Grid.Row="0"
+                                Style="{StaticResource LabelBoldStyle}" 
+                                FontSize="22" 
+                                VerticalOptions="CenterAndExpand" 
+                                HorizontalOptions="CenterAndExpand" 
+                                TextColor="{Binding DayAchievementColor}" 
+                                Text="{Binding DayAchievementValue, StringFormat='{0}%'}"/>
+                            <!-- Day Achievement Description-->
+                            <StackLayout
+                                Grid.Row="1"
+                                VerticalOptions="CenterAndExpand" 
+                                HorizontalOptions="CenterAndExpand"
+                                Orientation="Horizontal">
+                                <Label
+                                    Style="{StaticResource LabelBoldStyle}" 
+                                    FontSize="12" 
+                                    VerticalOptions="CenterAndExpand" 
+                                    HorizontalOptions="CenterAndExpand" 
+                                    TextColor="{DynamicResource ShadowTextColor}" 
+                                    Text="{Binding DayAchievementToGet, StringFormat='{0} bp'}" />
+                                <Label  
+                                    Style="{StaticResource LabelBoldStyle}" 
+                                    FontSize="12" 
+                                    VerticalOptions="CenterAndExpand" 
+                                    HorizontalOptions="CenterAndExpand" 
+                                    TextColor="{DynamicResource ShadowTextColor}" 
+                                    Text="{x:Static resx:AppResources.StringInDay}"/>
+                            </StackLayout>
+                        </Grid>
+                    </Frame>
+                    <Frame
+                        Grid.Column="1"
+                        Padding="0"
+                        BorderColor="{DynamicResource AchievementsBorderColor}"
+                        BackgroundColor="{DynamicResource FullTransparentBackgroundColor}"
+                        IsClippedToBounds="True"
+                        CornerRadius="20"
+                        HeightRequest="145"
+                        WidthRequest="145"
+                        HorizontalOptions="FillAndExpand">
+                        <Grid
+                            Padding="10"
+                            HorizontalOptions="FillAndExpand"
+                            VerticalOptions="FillAndExpand">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="95"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <!-- Week Achievement-->
+                            <control:ProgressRing 
+                                Grid.Row="0"
+                                HeightRequest="95" 
+                                WidthRequest="95" 
+                                RingBaseColor="{DynamicResource ShadowBackgroundColor}"
+                                RingProgressColor="{Binding WeekAchievementColor}" 
+                                RingThickness="5"  
+                                Progress="{Binding WeekAchievementProgress}"/>
+                            <!-- Week Achievement Percent-->
+                            <Label  
+                                Grid.Row="0"
+                                Style="{StaticResource LabelBoldStyle}" 
+                                FontSize="22" 
+                                VerticalOptions="CenterAndExpand" 
+                                HorizontalOptions="CenterAndExpand" 
+                                TextColor="{Binding WeekAchievementColor}" 
+                                Text="{Binding WeekAchievementValue, StringFormat='{0}%'}"/>
+                            <!-- Week Achievement Description-->
+                            <StackLayout
+                                Grid.Row="1"
+                                VerticalOptions="CenterAndExpand" 
+                                HorizontalOptions="CenterAndExpand"
+                                Orientation="Horizontal">
+                                <Label
+                                    Style="{StaticResource LabelBoldStyle}" 
+                                    FontSize="12" 
+                                    VerticalOptions="CenterAndExpand" 
+                                    HorizontalOptions="CenterAndExpand" 
+                                    TextColor="{DynamicResource ShadowTextColor}" 
+                                    Text="{Binding WeekAchievementToGet, StringFormat='{0} bp'}" />
+                                <Label  
+                                    Style="{StaticResource LabelBoldStyle}" 
+                                    FontSize="12" 
+                                    VerticalOptions="CenterAndExpand" 
+                                    HorizontalOptions="CenterAndExpand" 
+                                    TextColor="{DynamicResource ShadowTextColor}" 
+                                    Text="{x:Static resx:AppResources.StringInWeek}"/>
+                            </StackLayout>
+                        </Grid>
+                    </Frame>
+                </Grid>
+            </Grid>
+        </ScrollView>
+        <!-- Loading gif -->
+        <ActivityIndicator 
+            Grid.Row="0"
+            Color="{DynamicResource LoadingColor}"
+            IsRunning="{Binding IsBusy}"
+            HorizontalOptions="Center"
+            VerticalOptions="End"
+            TranslationY="-40"
+            InputTransparent="True"/>
+        <!-- Loading view-->
+        <baseTemplates:LoadingTemplate 
+            Grid.Row="0"
+            x:Name="loader"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="FillAndExpand"
+            IsVisible="True"/>
+    </Grid>
+</ContentPage>

@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BiPoints.Common\BiPoints.Common.csproj" />
+    <ProjectReference Include="..\BiPoints.DAL\BiPoints.DAL.csproj" />
+  </ItemGroup>
+
+</Project>
